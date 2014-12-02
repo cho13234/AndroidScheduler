@@ -1,0 +1,147 @@
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@android:color/background_light" >
+    
+    <TableRow 
+        android:layout_width="match_parent"
+    	android:layout_height="19dp"
+    	android:orientation="horizontal"
+    	android:background="#A0777777"
+    	android:layout_weight="0" >
+    	
+        <TextView 
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_horizontal"
+            android:background="#CCCCCC" 
+            android:layout_weight="0"/>
+    	
+        <TextView 
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_horizontal"
+            android:textSize="12dp"
+            android:text="월"
+            android:layout_weight="1"/>
+    	
+        <TextView 
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_horizontal"
+            android:textSize="12dp"
+            android:text="화"
+            android:layout_weight="1"/>
+    	
+        <TextView 
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_horizontal"
+            android:textSize="12dp"
+            android:text="수"
+            android:layout_weight="1"/>
+    	
+        <TextView 
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_horizontal"
+            android:textSize="12dp"
+            android:text="목"
+            android:layout_weight="1"/>
+    	
+        <TextView 
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_horizontal"
+            android:textSize="12dp"
+            android:text="금"
+            android:layout_weight="1"/>
+    	
+        <TextView 
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_horizontal"
+            android:textSize="12dp"
+            android:text="토"
+            android:layout_weight="1"/>
+    	
+    </TableRow>
+    
+    <TableRow 
+        android:layout_weight="0"
+        android:background="@android:color/holo_blue_bright">
+        
+        <View
+            android:layout_height="1dp"/>
+        
+    </TableRow>
+        
+    
+    <TableRow
+        android:layout_width="match_parent"
+    	android:layout_height="match_parent"
+    	android:orientation="horizontal"
+    	android:background="@android:color/darker_gray"
+    	android:layout_weight="1" >
+    	
+        <ListView
+            android:id="@+id/listview"
+            android:layout_width="40dp"
+            android:layout_height="fill_parent"
+			android:background="#CCCCCC"
+			android:clickable="false"
+            android:layout_weight="0" >
+        </ListView>
+
+        <ListView
+            android:id="@+id/listview_1"
+            android:layout_width="52.4dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="0" >
+        </ListView>
+
+        <ListView
+            android:id="@+id/listview_2"
+            android:layout_width="52.4dp"
+            android:layout_height="fill_parent"
+            android:layout_marginLeft="1dp"
+            android:layout_weight="0" >
+        </ListView>
+
+        <ListView
+            android:id="@+id/listview_3"
+            android:layout_width="52.4dp"
+            android:layout_height="fill_parent"
+            android:layout_marginLeft="1dp"
+            android:layout_weight="0" >
+        </ListView>
+
+        <ListView
+            android:id="@+id/listview_4"
+            android:layout_width="52.4dp"
+            android:layout_height="fill_parent"
+            android:layout_marginLeft="1dp"
+            android:layout_weight="0" >
+        </ListView>
+
+        <ListView
+            android:id="@+id/listview_5"
+            android:layout_width="52.4dp"
+            android:layout_height="fill_parent"
+            android:layout_marginLeft="1dp"
+            android:layout_weight="0" >
+        </ListView>
+
+        <ListView
+            android:id="@+id/listview_6"
+            android:layout_width="52.4dp"
+            android:layout_height="fill_parent"
+            android:layout_marginLeft="1dp"
+            android:layout_weight="0" >
+        </ListView>
+    
+    </TableRow>
+
+</TableLayout>
