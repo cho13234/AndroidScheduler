@@ -1,5 +1,5 @@
 package com.example.androidscheduler;
-import umhaejinbabo
+
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
