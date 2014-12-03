@@ -1,5 +1,5 @@
 package com.example.androidscheduler;
 
-public class TestforCommit {
+public class Test {
 
 }
