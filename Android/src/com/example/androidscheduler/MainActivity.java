@@ -42,8 +42,7 @@ public class MainActivity extends Activity {
 	public class CustomClickListner implements OnItemClickListener {
 
 		@Override
-		public void onItemClick(AdapterView<?> parent, View view, int position,
-				long id) {
+		public void onItemClick(AdapterView<?> parent, View view, int position,long id) {
 			Intent intent = new Intent(MainActivity.this, NewActivity.class);
 
 			monId = mListViewMon.getId();
