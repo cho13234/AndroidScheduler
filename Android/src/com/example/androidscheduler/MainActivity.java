@@ -199,3 +199,10 @@ public class MainActivity extends Activity {
 		return super.onOptionsItemSelected(item);
 	}
 }
+
+//파싱
+class ParsingData {
+	ParsingData(){
+		
+	}
+}
