@@ -36,8 +36,6 @@ public class NewActivity extends Activity {
 	}
 
 	public void onButtonReturnClicked(View v) {
-		// Toast.makeText(getApplicationContext(), "pushed return",
-		// Toast.LENGTH_LONG).show();
 
 		Intent intent = new Intent();
 		setResult(2000, intent);
