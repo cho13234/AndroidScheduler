@@ -1,0 +1,346 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<class xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<info>
+		<Grade>2</Grade>
+		<Information>교필</Information>
+		<SubjectName>대학영어회화2</SubjectName>
+		<Point>1</Point>
+		<Date>월 5 6</Date>
+	</info>
+	<info>
+		<Grade>0</Grade>
+		<Information>교선</Information>
+		<SubjectName>철학의이해</SubjectName>
+		<Point>3</Point>
+		<Date>화 1 2 3</Date>
+	</info>
+	<info>
+		<Grade>0</Grade>
+		<Information>교선</Information>
+		<SubjectName>철학의이해</SubjectName>
+		<Point>3</Point>
+		<Date>수 7 8 9</Date>
+	</info>
+	<info>
+		<Grade>0</Grade>
+		<Information>교선</Information>
+		<SubjectName>예술과사회</SubjectName>
+		<Point>3</Point>
+		<Date>금 2 3 4</Date>
+	</info>
+	<info>
+		<Grade>0</Grade>
+		<Information>교선</Information>
+		<SubjectName>인문학고전읽기</SubjectName>
+		<Point>3</Point>
+		<Date>금 2 3 4</Date>
+	</info>
+	<info>
+		<Grade>0</Grade>
+		<Information>교선</Information>
+		<SubjectName>역사란무엇인가</SubjectName>
+		<Point>3</Point>
+		<Date>목 4 5 6</Date>
+	</info>
+	<info>
+		<Grade>0</Grade>
+		<Information>교선</Information>
+		<SubjectName>역사란무엇인가</SubjectName>
+		<Point>3</Point>
+		<Date>목 야간1 야간2 야간3</Date>
+	</info>
+	<info>
+		<Grade>0</Grade>
+		<Information>교선</Information>
+		<SubjectName>창의적사고와의소통</SubjectName>
+		<Point>3</Point>
+		<Date>화 4 5 6</Date>
+	</info>
+	<info>
+		<Grade>0</Grade>
+		<Information>교선</Information>
+		<SubjectName>창의적사고와의소통</SubjectName>
+		<Point>3</Point>
+		<Date>목 4 5 6</Date>
+	</info>
+	<info>
+		<Grade>0</Grade>
+		<Information>교선</Information>
+		<SubjectName>영상으로읽는서양문학</SubjectName>
+		<Point>3</Point>
+		<Date>월 7 8 9</Date>
+	</info>
+	<info>
+		<Grade>0</Grade>
+		<Information>교선</Information>
+		<SubjectName>근현대문학거장과의만남</SubjectName>
+		<Point>3</Point>
+		<Date>목 2 3 4</Date>
+	</info>
+	<info>
+		<Grade>0</Grade>
+		<Information>교선</Information>
+		<SubjectName>문화와정신분석</SubjectName>
+		<Point>3</Point>
+		<Date>화 4 5 6</Date>
+	</info>
+	<info>
+		<Grade>0</Grade>
+		<Information>교선</Information>
+		<SubjectName>문학의 이해</SubjectName>
+		<Point>3</Point>
+		<Date>월 4 5 6</Date>
+	</info>
+	<info>
+		<Grade>0</Grade>
+		<Information>교선</Information>
+		<SubjectName>한국사의이해</SubjectName>
+		<Point>3</Point>
+		<Date>수 7 8 9</Date>
+	</info>
+	<info>
+		<Grade>0</Grade>
+		<Information>교선</Information>
+		<SubjectName>한국사의이해</SubjectName>
+		<Point>3</Point>
+		<Date>목 야간1 야간2 야간3</Date>
+	</info>
+	<info>
+		<Grade>0</Grade>
+		<Information>교선</Information>
+		<SubjectName>과학기술명저읽기</SubjectName>
+		<Point>3</Point>
+		<Date>목 5 6 7</Date>
+	</info>
+	<info>
+		<Grade>0</Grade>
+		<Information>교선</Information>
+		<SubjectName>과학기술과인간의대화</SubjectName>
+		<Point>3</Point>
+		<Date>화 6 7 8 </Date>
+	</info>
+	<info>
+		<Grade>0</Grade>
+		<Information>교선</Information>
+		<SubjectName>과학기술과인간의대화</SubjectName>
+		<Point>3</Point>
+		<Date>수 6 7 8</Date>
+	</info>
+	<info>
+		<Grade>0</Grade>
+		<Information>교선</Information>
+		<SubjectName>과학기술과인간의대화</SubjectName>
+		<Point>3</Point>
+		<Date>수 야간1 야간2 야간3</Date>
+	</info>
+	<info>
+		<Grade>0</Grade>
+		<Information>교선</Information>
+		<SubjectName>디지털기술과미래</SubjectName>
+		<Point>3</Point>
+		<Date>목 6 7 8 </Date>
+	</info>
+	<info>
+		<Grade>0</Grade>
+		<Information>교선</Information>
+		<SubjectName>융합기술의세계</SubjectName>
+		<Point>3</Point>
+		<Date>수 4 5 6</Date>
+	</info>
+	<info>
+		<Grade>0</Grade>
+		<Information>교선</Information>
+		<SubjectName>물의위기와환경</SubjectName>
+		<Point>3</Point>
+		<Date>화 1 2 3 </Date>
+	</info>
+	<info>
+		<Grade>0</Grade>
+		<Information>교선</Information>
+		<SubjectName>물의위기와환경</SubjectName>
+		<Point>3</Point>
+		<Date>화 1 2 3</Date>
+	</info>
+	<info>
+		<Grade>0</Grade>
+		<Information>교선</Information>
+		<SubjectName>BT산업시대와미래</SubjectName>
+		<Point>3</Point>
+		<Date>수 5 6 7</Date>
+	</info>
+	<info>
+		<Grade>0</Grade>
+		<Information>교선</Information>
+		<SubjectName>생명과학</SubjectName>
+		<Point>3</Point>
+		<Date>월 1 2 3</Date>
+	</info>
+	<info>
+		<Grade>0</Grade>
+		<Information>교선</Information>
+		<SubjectName>생명과학</SubjectName>
+		<Point>3</Point>
+		<Date>목 4 5 6</Date>
+	</info>
+	<info>
+		<Grade>0</Grade>
+		<Information>교선</Information>
+		<SubjectName>생명과학</SubjectName>
+		<Point>3</Point>
+		<Date>목 야간1 야간2 야간3</Date>
+	</info>
+	<info>
+		<Grade>0</Grade>
+		<Information>교선</Information>
+		<SubjectName>지구과학</SubjectName>
+		<Point>3</Point>
+		<Date>목 6 7 8 </Date>
+	</info>
+	<info>
+		<Grade>0</Grade>
+		<Information>교선</Information>
+		<SubjectName>지구과학</SubjectName>
+		<Point>3</Point>
+		<Date>목 야간1 야간2 야간3</Date>
+	</info>
+	<info>
+		<Grade>0</Grade>
+		<Information>교선</Information>
+		<SubjectName>기초통계학</SubjectName>
+		<Point>3</Point>
+		<Date>화 2 3 목 6</Date>
+	</info>
+	<info>
+		<Grade>0</Grade>
+		<Information>교선</Information>
+		<SubjectName>컴퓨터응용</SubjectName>
+		<Point>3</Point>
+		<Date>화 6 7 8 </Date>
+	</info>
+	<info>
+		<Grade>0</Grade>
+		<Information>교선</Information>
+		<SubjectName>컴퓨터응용</SubjectName>
+		<Point>3</Point>
+		<Date>수 6 7 8</Date>
+	</info>
+	<info>
+		<Grade>0</Grade>
+		<Information>교선</Information>
+		<SubjectName>컴퓨터응용</SubjectName>
+		<Point>3</Point>
+		<Date>화 야간1 야간2 야간3</Date>
+	</info>
+	<info>
+		<Grade>1</Grade>
+		<Information>교필</Information>
+		<SubjectName>공학작문및발표</SubjectName>
+		<Point>3</Point>
+		<Date>수 7 8 9</Date>
+	</info>
+	<info>
+		<Grade>1</Grade>
+		<Information>기과</Information>
+		<SubjectName>물리(2)</SubjectName>
+		<Point>3</Point>
+		<Date>목 1 2 3</Date>
+	</info>
+	<info>
+		<Grade>1</Grade>
+		<Information>기과</Information>
+		<SubjectName>물리실험(2)</SubjectName>
+		<Point>1</Point>
+		<Date>금 1 2</Date>
+	</info>
+	<info>
+		<Grade>1</Grade>
+		<Information>기과</Information>
+		<SubjectName>물리실험(2)</SubjectName>
+		<Point>1</Point>
+		<Date>금 1 2</Date>
+	</info>
+	<info>
+		<Grade>1</Grade>
+		<Information>전기</Information>
+		<SubjectName>공헙수학(2)</SubjectName>
+		<Point>2</Point>
+		<Date>화 8 9</Date>
+	</info>
+	<info>
+		<Grade>1</Grade>
+		<Information>전필</Information>
+		<SubjectName>아날로그HW실습</SubjectName>
+		<Point>1</Point>
+		<Date>목 5 6</Date>
+	</info>
+	<info>
+		<Grade>1</Grade>
+		<Information>전필</Information>
+		<SubjectName>아날로그HW실습</SubjectName>
+		<Point>1</Point>
+		<Date>목 7 8</Date>
+	</info>
+	<info>
+		<Grade>1</Grade>
+		<Information>전필</Information>
+		<SubjectName>전자공학</SubjectName>
+		<Point>2</Point>
+		<Date>월 8 9 </Date>
+	</info>
+	<info>
+		<Grade>1</Grade>
+		<Information>전선</Information>
+		<SubjectName>프로그래밍응용</SubjectName>
+		<Point>1</Point>
+		<Date>화 1 2</Date>
+	</info>
+	<info>
+		<Grade>1</Grade>
+		<Information>전선</Information>
+		<SubjectName>프로그래밍응용</SubjectName>
+		<Point>1</Point>
+		<Date>화 3 4 </Date>
+	</info>
+	<info>
+		<Grade>1</Grade>
+		<Information>전선</Information>
+		<SubjectName>수치해석</SubjectName>
+		<Point>3</Point>
+		<Date>월 5 수 1 2 </Date>
+	</info>
+	<info>
+		<Grade>2</Grade>
+		<Information>교선</Information>
+		<SubjectName>일본어1</SubjectName>
+		<Point>3</Point>
+		<Date>수 4 5 6 </Date>
+	</info>
+	<info>
+		<Grade>2</Grade>
+		<Information>전기</Information>
+		<SubjectName>논리학</SubjectName>
+		<Point>3</Point>
+		<Date>화 1 2 3</Date>
+	</info>
+	<info>
+		<Grade>2</Grade>
+		<Information>전필</Information>
+		<SubjectName>SW분석과설계</SubjectName>
+		<Point>2</Point>
+		<Date>금 7 8</Date>
+	</info>
+	<info>
+		<Grade>2</Grade>
+		<Information>전필</Information>
+		<SubjectName>SW기초실습2</SubjectName>
+		<Point>1</Point>
+		<Date>화 8 9</Date>
+	</info>
+	<info>
+		<Grade>2</Grade>
+		<Information>전필</Information>
+		<SubjectName>마이크로콘트롤러</SubjectName>
+		<Point>3</Point>
+		<Date>월 7 수 8 9</Date>
+	</info>
+</class>
