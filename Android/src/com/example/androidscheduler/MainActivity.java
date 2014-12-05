@@ -42,15 +42,7 @@ public class MainActivity extends ActionBarActivity implements OnClickListener {
 		goBtn = (Button) findViewById(R.id.gobtn);
 		idtv = (EditText) findViewById(R.id.Idet);
 		pwtv = (EditText) findViewById(R.id.Pwet);
-		goBtn.setOnClickListener(this);/*
-										 * new OnClickListener() {
-										 * 
-										 * public void onClick(View v) { Intent
-										 * intent = new
-										 * Intent(MainActivity.this,
-										 * Worklist.class);
-										 * startActivity(intent); } });
-										 */
+		goBtn.setOnClickListener(this);
 		cThread = new chatThread();
 		cThread.start();
 		loginBtn.setOnClickListener(new OnClickListener() {
@@ -59,23 +51,13 @@ public class MainActivity extends ActionBarActivity implements OnClickListener {
 				Log.d("CHOI", "Send!");
 				sendMessage(MakingProtocol.Login_info(getCurrentMacAddress(),
 						idtv.getText().toString(), pwtv.getText().toString()));
-				// loginBtn.setText("Login~ing");
-				// loginBtn.setEnabled(false);
-				// goBtn.setEnabled(true);
-
-				// goBtn.setEnabled(true);
-				/*
-				 * cThread = new chatThread(); cThread.start();
-				 */
-				// Intent intent = new Intent(MainActivity.this,Worklist.class);
 			}
 		});
 
 	}
 
-	public Handler mHandler = new Handler() { // ½º·¹µå¿¡¼­ ¸Ş¼¼Áö¸¦ ¹ŞÀ» ÇÚµé·¯.
+	public Handler mHandler = new Handler() { // ìŠ¤ë ˆë“œì—ì„œ ë©”ì„¸ì§€ë¥¼ ë°›ì„ í•¸ë“¤ëŸ¬.
 		public void handleMessage(Message msg) {
-			// Log.d("Receive Message","msg = "+msg.obj.toString());
 			String response = msg.obj.toString();
 			String response2[] = response.split("/");
 			if (response2[0].equals("login")) {
@@ -91,7 +73,7 @@ public class MainActivity extends ActionBarActivity implements OnClickListener {
 
 	private void sendMessage(String MSG) {
 		try {
-			streamOut.println(MSG); // ¼­¹ö¿¡ ¸Ş¼¼Áö¸¦ º¸³»Áİ´Ï´Ù.
+			streamOut.println(MSG); // ì„œë²„ì— ë©”ì„¸ì§€ë¥¼ ë³´ë‚´ì¤ë‹ˆë‹¤.
 		} catch (Exception ex) {
 			Log.d("SendError", ex.toString());
 		}
@@ -120,7 +102,7 @@ public class MainActivity extends ActionBarActivity implements OnClickListener {
 	}
 
 	class chatThread extends Thread {
-		private boolean flag = false; // ½º·¹µå À¯Áö(Á¾·á)¿ë ÇÃ·¡±×
+		private boolean flag = false; // ìŠ¤ë ˆë“œ ìœ ì§€(ì¢…ë£Œ)ìš© í”Œë˜ê·¸
 
 		public void run() {
 			try {
@@ -129,25 +111,25 @@ public class MainActivity extends ActionBarActivity implements OnClickListener {
 				streamOut = new PrintWriter(new BufferedWriter(
 						new OutputStreamWriter(cSocket.getOutputStream())),
 						true);// new PrintWriter(cSocket.getOutputStream(),
-								// true); // Ãâ·Â¿ë ½ºÆ®¸²
+								// true); // ì¶œë ¥ìš© ìŠ¤íŠ¸ë¦¼
 				streamIn = new BufferedReader(new InputStreamReader(
-						cSocket.getInputStream())); // ÀÔ·Â¿ë ½ºÆ®¸²
+						cSocket.getInputStream())); // ì…ë ¥ìš© ìŠ¤íŠ¸ë¦¼
 
 				// sendMessage(getCurrentMacAddress()+"/"+pwtv.getText().toString());
 
-				while (!flag) { // ÇÃ·¡±×°¡ falseÀÏ°æ¿ì¿¡ ·çÇÁ
+				while (!flag) { // í”Œë˜ê·¸ê°€ falseì¼ê²½ìš°ì— ë£¨í”„
 					String msgs;
 					Message msg = new Message();
 					msg.what = 0;
-					msgs = streamIn.readLine(); // ¼­¹ö¿¡¼­ ¿Ã ¸Ş¼¼Áö¸¦ ±â´Ù¸°´Ù.
+					msgs = streamIn.readLine(); // ì„œë²„ì—ì„œ ì˜¬ ë©”ì„¸ì§€ë¥¼ ê¸°ë‹¤ë¦°ë‹¤.
 					msg.obj = msgs;
 
-					mHandler.sendMessage(msg); // ÇÚµé·¯·Î ¸Ş¼¼Áö Àü¼Û
+					mHandler.sendMessage(msg); // í•¸ë“¤ëŸ¬ë¡œ ë©”ì„¸ì§€ ì „ì†¡
 
 					/*
-					 * if (msgs.equals("# [" + nickName + "]´ÔÀÌ ³ª°¡¼Ì½À´Ï´Ù.")) { //
-					 * ¼­¹ö¿¡¼­ ¿Â ¸Ş¼¼Áö°¡ Á¾·á ¸Ş¼¼Áö¶ó¸é flag = true; // ½º·¹µå Á¾·á¸¦ À§ÇØ ÇÃ·¡±×¸¦
-					 * true·Î ¹Ù²Ş. msg = new Message(); msg.what = 1; // Á¾·á¸Ş¼¼Áö
+					 * if (msgs.equals("# [" + nickName + "]ë‹˜ì´ ë‚˜ê°€ì…¨ìŠµë‹ˆë‹¤.")) { //
+					 * ì„œë²„ì—ì„œ ì˜¨ ë©”ì„¸ì§€ê°€ ì¢…ë£Œ ë©”ì„¸ì§€ë¼ë©´ flag = true; // ìŠ¤ë ˆë“œ ì¢…ë£Œë¥¼ ìœ„í•´ í”Œë˜ê·¸ë¥¼
+					 * trueë¡œ ë°”ê¿ˆ. msg = new Message(); msg.what = 1; // ì¢…ë£Œë©”ì„¸ì§€
 					 * mHandler.sendMessage(msg); }
 					 */
 				}
@@ -161,7 +143,7 @@ public class MainActivity extends ActionBarActivity implements OnClickListener {
 	@Override
 	public void onClick(View v) {
 		// TODO Auto-generated method stub
-		Log.d("Choi", "ActivityÀüÈ¯");
+		Log.d("Choi", "Activityì „í™˜");
 		// Intent intent = new Intent(this,Worklist.class);
 		Intent intent = new Intent(this, SectorList.class);
 		startActivity(intent);
