@@ -16,6 +16,8 @@ import android.os.*;
 
 public class MainActivity extends Activity {
 
+	private ArrayList<ListView> mListArray = new ArrayList<ListView>();
+
 	private ListView mListView;
 	private ListView mListViewMon;
 	private ListView mListViewTue;
@@ -47,28 +49,20 @@ public class MainActivity extends Activity {
 
 			monId = mListViewMon.getId();
 			int currentId = parent.getId();
-//			String currentDay = new String();
 
 			for (int i = 0; i < 6; i++) {
 				if ((currentId - monId) == i) {
-//					currentDay = Day[i]; // return <- click item - day
 					x = i;
 					y = position;
+					mListArray.get(x).setSelection(y);
 				}
 			}
 
-			// Toast.makeText(getApplicationContext(), currentDay+" "+position,
-			// Toast.LENGTH_LONG).show();
-//			Log.d("clickListener", "" + x + " " + y);
+			ClassInfo ci = (ClassInfo) mCustomArray.get(x).getItem(y);
+			Log.d("MainClickListener", x + " " + y);
 
-			// x - 1~6, y - 1~9, xy/10 = x, xy%10 = y
-//			int xy = ((x + 1) * 10) + (y + 1);
-//			Log.d("clickListener", "" + xy);
-
-			 ClassInfo ci = (ClassInfo)mCustomArray.get(x).getItem(y);
-			
-			 intent.putExtra("ClassInfo", ci);
-			 startActivityForResult(intent, 1000);
+			intent.putExtra("ClassInfo", ci);
+			startActivityForResult(intent, 1000);
 		}
 	}
 
@@ -102,21 +96,19 @@ public class MainActivity extends Activity {
 		mListViewFri = (ListView) findViewById(R.id.listview_5);
 		mListViewSat = (ListView) findViewById(R.id.listview_6);
 
+		mListArray.add(mListViewMon);
+		mListArray.add(mListViewTue);
+		mListArray.add(mListViewWed);
+		mListArray.add(mListViewThu);
+		mListArray.add(mListViewFri);
+		mListArray.add(mListViewSat);
+
 		mListView.setAdapter(mAdapter);
 
-		// mListViewMon.setAdapter(mAdapterMon);
-		// mListViewTue.setAdapter(mAdapterTue);
-		// mListViewWed.setAdapter(mAdapterWed);
-		// mListViewThu.setAdapter(mAdapterThu);
-		// mListViewFri.setAdapter(mAdapterFri);
-		// mListViewSat.setAdapter(mAdapterSat);
-
-		mListViewMon.setAdapter(mCustomArray.get(0));
-		mListViewTue.setAdapter(mCustomArray.get(1));
-		mListViewWed.setAdapter(mCustomArray.get(2));
-		mListViewThu.setAdapter(mCustomArray.get(3));
-		mListViewFri.setAdapter(mCustomArray.get(4));
-		mListViewSat.setAdapter(mCustomArray.get(5));
+		for (int i = 0; i < 6; i++) {
+			// mListArray has mListViewMon~Sat, mCustomArray has mAdapterMon~Sat
+			mListArray.get(i).setAdapter(mCustomArray.get(i));
+		}
 
 		for (int i = 1; i < 10; i++) {
 			mAdapter.add((i + 8) + ":" + 30);
@@ -124,15 +116,6 @@ public class MainActivity extends Activity {
 
 		ClassInfo ci = new ClassInfo("", "", "");
 
-		// for(int i = 0; i < 9; i++)
-		// {
-		// mAdapterMon.add(ci);
-		// mAdapterTue.add(ci);
-		// mAdapterWed.add(ci);
-		// mAdapterThu.add(ci);
-		// mAdapterFri.add(ci);
-		// mAdapterSat.add(ci);
-		// }
 		for (int i = 0; i < 6; i++) {
 			for (int j = 0; j < 9; j++) {
 				mCustomArray.get(i).add(ci);
@@ -140,9 +123,9 @@ public class MainActivity extends Activity {
 		}
 
 		ClassInfo ci1 = new ClassInfo("Chemistry", "Mon-1", "example");
-		// mAdapterMon.edit(0,ci1);
-		mCustomArray.get(0).edit(3, ci1);
-		mCustomArray.get(2).edit(0, ci1);
+		
+		mCustomArray.get(0).edit(3, ci1);	// set initial value - test
+		mCustomArray.get(2).edit(0, ci1);	// set initial value - test2
 
 		mListViewMon.setOnItemClickListener(new CustomClickListner());
 		mListViewTue.setOnItemClickListener(new CustomClickListner());
@@ -163,7 +146,6 @@ public class MainActivity extends Activity {
 			Bundle bundle = data.getExtras();
 			ci = (ClassInfo) bundle.get("ClassInfo");
 			
-//			ClassInfo ci = new ClassInfo(TEXT, Day[x]+"-"+(y+1), "ex");
 			mCustomArray.get(x).edit(y, ci);
 			mCustomArray.get(x).notifyDataSetChanged();
 
@@ -171,7 +153,7 @@ public class MainActivity extends Activity {
 			Log.d("MainResult", "Class name is " + ci.name);
 			Log.d("MainResult", "Class day is " + ci.day);
 			Log.d("MainResult", "Class detail is " + ci.detail);
-			
+
 		}
 
 		super.onActivityResult(requestCode, resultCode, data);
