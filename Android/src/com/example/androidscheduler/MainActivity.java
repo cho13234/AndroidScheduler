@@ -158,14 +158,11 @@ public class MainActivity extends Activity {
 
 		Log.d("MainResult", "" + "result code is " + resultCode);
 
-//		String TEXT = data.getStringExtra("TEXT");
-		
-//		Log.d("MainResult", "TEXT is " + TEXT);
-		ClassInfo ci;
-		Bundle bundle = data.getExtras();
-		ci = (ClassInfo) bundle.get("ClassInfo");
-
 		if (resultCode == 2001) {
+			ClassInfo ci;
+			Bundle bundle = data.getExtras();
+			ci = (ClassInfo) bundle.get("ClassInfo");
+			
 //			ClassInfo ci = new ClassInfo(TEXT, Day[x]+"-"+(y+1), "ex");
 			mCustomArray.get(x).edit(y, ci);
 			mCustomArray.get(x).notifyDataSetChanged();
