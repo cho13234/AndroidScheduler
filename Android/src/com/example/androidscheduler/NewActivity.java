@@ -31,7 +31,7 @@ public class NewActivity extends Activity {
 
 		text1.setText(ci.getName());
 		text2.setText(ci.getDay());
-		text3.setText(ci.getDetail());
+		text3.setText(ci.getType());
 		Log.d("NewResult", "NewActiviy CI Name is " + ci.getName());
 	}
 
@@ -46,9 +46,10 @@ public class NewActivity extends Activity {
 
 		String name 		= text1.getText().toString();
 		String day 			= text2.getText().toString();
-		String detail		= text3.getText().toString();
+		String type 		= text3.getText().toString();
+		String credit;
 
-		ClassInfo ci 		= new ClassInfo(name,day,detail);
+		ClassInfo ci 		= new ClassInfo(name,day,type,"");
 		Intent intent = new Intent();
 
 		intent.putExtra("ClassInfo", ci);

@@ -1,5 +1,9 @@
 package com.example.androidscheduler;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 
 import android.app.Activity;
@@ -10,9 +14,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ListView;
 import android.widget.AdapterView.OnItemClickListener;
-import android.os.*;
+import android.widget.ListView;
 
 public class MainActivity extends Activity {
 
@@ -44,7 +47,8 @@ public class MainActivity extends Activity {
 	public class CustomClickListner implements OnItemClickListener {
 
 		@Override
-		public void onItemClick(AdapterView<?> parent, View view, int position,long id) {
+		public void onItemClick(AdapterView<?> parent, View view, int position,
+				long id) {
 			Intent intent = new Intent(MainActivity.this, NewActivity.class);
 
 			monId = mListViewMon.getId();
@@ -70,6 +74,30 @@ public class MainActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
+
+		try {
+			// res/raw/ <- in textfile
+			InputStream in = getResources().openRawResource(R.raw.class_info);
+			BufferedReader br = new BufferedReader(new InputStreamReader(in,"UTF-8"));
+			String line;
+			String array[];
+			ClassArray classArray = new ClassArray();
+			
+			while((line = br.readLine()) != null){
+				array = line.split(",");
+				
+				classArray.dept.add(array[0]);
+				classArray.grade.add(array[1]);
+				classArray.type.add(array[2]);
+				classArray.name.add(array[3]);
+				classArray.day.add(array[4]);
+				classArray.credit.add(array[5]);
+				
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 
 		// listview - adapterview -- need adapter
 		mAdapter = new mCustomAdapter();
@@ -114,7 +142,7 @@ public class MainActivity extends Activity {
 			mAdapter.add((i + 8) + ":" + 30);
 		}
 
-		ClassInfo ci = new ClassInfo("", "", "");
+		ClassInfo ci = new ClassInfo("", "", "","");
 
 		for (int i = 0; i < 6; i++) {
 			for (int j = 0; j < 9; j++) {
@@ -122,10 +150,10 @@ public class MainActivity extends Activity {
 			}
 		}
 
-		ClassInfo ci1 = new ClassInfo("Chemistry", "Mon-1", "example");
-		
-		mCustomArray.get(0).edit(3, ci1);	// set initial value - test
-		mCustomArray.get(2).edit(0, ci1);	// set initial value - test2
+		ClassInfo ci1 = new ClassInfo("Chemistry", "Mon-1", "example", "example");
+
+		mCustomArray.get(0).edit(3, ci1); // set initial value - test
+		mCustomArray.get(2).edit(0, ci1); // set initial value - test2
 
 		mListViewMon.setOnItemClickListener(new CustomClickListner());
 		mListViewTue.setOnItemClickListener(new CustomClickListner());
@@ -134,6 +162,11 @@ public class MainActivity extends Activity {
 		mListViewFri.setOnItemClickListener(new CustomClickListner());
 		mListViewSat.setOnItemClickListener(new CustomClickListner());
 
+		try {
+			ClassArray fr = new ClassArray();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 	@Override
@@ -145,14 +178,14 @@ public class MainActivity extends Activity {
 			ClassInfo ci;
 			Bundle bundle = data.getExtras();
 			ci = (ClassInfo) bundle.get("ClassInfo");
-			
+
 			mCustomArray.get(x).edit(y, ci);
 			mCustomArray.get(x).notifyDataSetChanged();
 
 			Log.d("MainResult", "x is " + x + " y is " + y);
 			Log.d("MainResult", "Class name is " + ci.name);
 			Log.d("MainResult", "Class day is " + ci.day);
-			Log.d("MainResult", "Class detail is " + ci.detail);
+			Log.d("MainResult", "Class detail is " + ci.type);
 
 		}
 
@@ -179,9 +212,9 @@ public class MainActivity extends Activity {
 	}
 }
 
-//파싱
+// 파싱
 class ParsingData {
-	ParsingData(){
-		
+	ParsingData() {
+
 	}
 }

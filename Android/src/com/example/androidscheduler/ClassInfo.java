@@ -11,22 +11,25 @@ public class ClassInfo implements Parcelable {
 
 	public String name;
 	public String day;
-	public String detail;
+	public String type;
+	public String credit;
+	
+	
 
-	public ClassInfo(String name, String day, String detail) {
+	public ClassInfo(String name, String day, String detail, String credit) {
 
 		this.name = name;
-		
 		this.day = day;
-		
-		this.detail = detail;
+		this.type = detail;
+		this.credit = credit;
 	}
 
 	public ClassInfo(Parcel src) {
 
 		name = src.readString();
 		day = src.readString();
-		detail = src.readString();
+		type = src.readString();
+		credit = src.readString();
 	}
 
 	public static final Parcelable.Creator CREATOR = new Parcelable.Creator() {
@@ -52,7 +55,8 @@ public class ClassInfo implements Parcelable {
 	public void writeToParcel(Parcel dest, int flags) {
 		dest.writeString(name);
 		dest.writeString(day);
-		dest.writeString(detail);
+		dest.writeString(type);
+		dest.writeString(credit);
 	}
 
 	public String getName() {
@@ -71,12 +75,20 @@ public class ClassInfo implements Parcelable {
 		this.day = day;
 	}
 
-	public String getDetail() {
-		return detail;
+	public String getType() {
+		return type;
 	}
 
-	public void setDetail(String detail) {
-		this.detail = detail;
+	public void setType(String type) {
+		this.type = type;
+	}
+	
+	public String getCredit() {
+		return credit;
+	}
+	
+	public void setCredit(String credit) {
+		this.credit = credit;
 	}
 
 }
