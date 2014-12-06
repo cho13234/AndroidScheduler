@@ -53,7 +53,7 @@ public class MainActivity extends ActionBarActivity implements OnClickListener {
 	@Override
 	public void onClick(View v) {
 		// TODO Auto-generated method stub
-		Intent intent = new Intent(this,SectorList.class);
+		Intent intent = new Intent(this,다음 클래스.class);
 		startActivity(intent);
 	}
 
