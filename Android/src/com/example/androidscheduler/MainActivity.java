@@ -39,7 +39,7 @@ public class MainActivity extends Activity {
 	private CustomAdapter mAdapterFri;
 	private CustomAdapter mAdapterSat;
 
-	private String[] Day = { "Mon", "Tue", "Wed", "Thu", "Fri", "Sat" };
+//	private String[] Day = { "Mon", "Tue", "Wed", "Thu", "Fri", "Sat" };
 	private int x = 0, y = 0;
 	public int monId = 0;
 
@@ -162,11 +162,6 @@ public class MainActivity extends Activity {
 		mListViewFri.setOnItemClickListener(new CustomClickListner());
 		mListViewSat.setOnItemClickListener(new CustomClickListner());
 
-		try {
-			ClassArray fr = new ClassArray();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
 	}
 
 	@Override

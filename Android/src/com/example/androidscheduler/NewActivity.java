@@ -8,11 +8,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.Toast;
 
 public class NewActivity extends Activity {
 
-	private int xy = 0, x = 0, y = 0;
 	private EditText text1;
 	private EditText text2;
 	private EditText text3;
@@ -47,7 +45,7 @@ public class NewActivity extends Activity {
 		String name 		= text1.getText().toString();
 		String day 			= text2.getText().toString();
 		String type 		= text3.getText().toString();
-		String credit;
+//		String credit;
 
 		ClassInfo ci 		= new ClassInfo(name,day,type,"");
 		Intent intent = new Intent();

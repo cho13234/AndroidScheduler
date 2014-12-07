@@ -5,12 +5,9 @@ import java.util.ArrayList;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.View.OnClickListener;
-import android.view.View.OnLongClickListener;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
-import android.widget.Toast;
 
 public class mCustomAdapter extends BaseAdapter {
 	
@@ -42,7 +39,6 @@ public class mCustomAdapter extends BaseAdapter {
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
 		
-		final int pos = position;
 		final Context context = parent.getContext();
 		
 		TextView text 		= null;

@@ -3,9 +3,6 @@ package com.example.androidscheduler;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import android.util.Log;
-import android.view.*;
-
 public class ClassArray {
 	public ArrayList<String> dept;
 	public ArrayList<String> grade;

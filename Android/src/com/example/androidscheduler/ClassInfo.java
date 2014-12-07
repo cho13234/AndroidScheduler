@@ -1,9 +1,5 @@
 package com.example.androidscheduler;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import android.R.string;
 import android.os.Parcel;
 import android.os.Parcelable;
 

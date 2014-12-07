@@ -2,6 +2,10 @@ package com.example.alarm;
 
 import java.util.Calendar;
 import java.util.GregorianCalendar;
+
+import com.example.androidscheduler.MainActivity;
+import com.example.androidscheduler.R;
+
 import android.app.*;
 import android.content.Context;
 import android.content.Intent;
