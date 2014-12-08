@@ -40,10 +40,15 @@ public class MainActivity extends Activity {
 	private CustomAdapter mAdapterSat;
 
 //	private String[] Day = { "Mon", "Tue", "Wed", "Thu", "Fri", "Sat" };
+	private String week = "월화수목금토일";
 	private int x = 0, y = 0;
 	public int monId = 0;
 	
+<<<<<<< HEAD
 	public ClassArray classArray;;
+=======
+	public ClassArray classArray;
+>>>>>>> cellStuff
 
 	// item listener
 	public class CustomClickListner implements OnItemClickListener {
@@ -60,7 +65,6 @@ public class MainActivity extends Activity {
 				if ((currentId - monId) == i) {
 					x = i;
 					y = position;
-					mListArray.get(x).setSelection(y);
 				}
 			}
 
@@ -77,8 +81,9 @@ public class MainActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 
+		// data parsing
 		try {
-			// res/raw/ <- in textfile
+			// res/raw/ <- in text file
 			InputStream in = getResources().openRawResource(R.raw.class_info);
 			BufferedReader br = new BufferedReader(new InputStreamReader(in,"UTF-8"));
 			String line;
@@ -145,18 +150,19 @@ public class MainActivity extends Activity {
 			mAdapter.add((i + 8) + ":" + 30);
 		}
 
-		ClassInfo ci = new ClassInfo("", "", "","");
+//		ClassInfo ci = new ClassInfo("", "", "","");
 
 		for (int i = 0; i < 6; i++) {
 			for (int j = 0; j < 9; j++) {
+				ClassInfo ci = new ClassInfo("",week.charAt(i)+"-"+(j+1),"","");
 				mCustomArray.get(i).add(ci);
 			}
 		}
 
-		ClassInfo ci1 = new ClassInfo("Chemistry", "목 1  2  3", "example", "example");
+		ClassInfo ci1 = new ClassInfo("Chemistry", "목-1_2_3+금-2", "example", "example");
 
-		mCustomArray.get(0).edit(3, ci1); // set initial value - test
-		mCustomArray.get(2).edit(0, ci1); // set initial value - test2
+		mCustomArray.get(4).edit(1, ci1); // set initial value - test
+//		mCustomArray.get(2).edit(0, ci1); // set initial value - test2
 
 		mListViewMon.setOnItemClickListener(new CustomClickListner());
 		mListViewTue.setOnItemClickListener(new CustomClickListner());
@@ -177,15 +183,47 @@ public class MainActivity extends Activity {
 			Bundle bundle = data.getExtras();
 			ci = (ClassInfo) bundle.get("ClassInfo");
 
+<<<<<<< HEAD
 //			mCustomArray.get(x).edit(y, ci);
 			
 			// refresh data cell
 			mCustomArray.get(x).notifyDataSetChanged();
 
 			Log.d("MainResult", "x is " + x + " y is " + y);
+=======
+			if(ci.getDay().contains("+")){
+				
+				// 일부 특수문자를 string 으로 변환하기 위해 \\를 앞에 붙인다.
+				String mArray[] = ci.getDay().split("\\+");
+				
+				for(int i = 0; i < mArray.length; i++){
+					
+					// (length +1)/2 로 반올림 성립
+					for(int j = 1; j < (mArray[i].length()+1)/2; j++){
+						
+						// 원래 -'0'을 함으로써 ascii -> integer 변환을 하지만 숫자표기는 1~9이고 실제 position 은 0~8이므로 -'1'을 해준다.
+						mCustomArray.get(week.indexOf(mArray[i].charAt(0))).edit(mArray[i].charAt(j*2)-'1', ci);
+						
+					}
+					
+					// refresh data cell
+					mCustomArray.get(week.indexOf(mArray[i].charAt(0))).notifyDataSetChanged();
+				}
+			}
+			else{
+				String day = ci.getDay();
+				
+				for(int j = 1; j < (day.length()+1)/2; j++){
+					mCustomArray.get(week.indexOf(day.charAt(0))).edit(day.charAt(j*2)-'1', ci);
+				}
+				
+				mCustomArray.get(week.indexOf(day.charAt(0))).notifyDataSetChanged();
+			}
+
 			Log.d("MainResult", "Class name is " + ci.name);
 			Log.d("MainResult", "Class day is " + ci.day);
-			Log.d("MainResult", "Class detail is " + ci.type);
+			Log.d("MainResult", "Class type is " + ci.type);
+			Log.d("MainResult", "Class credit is " + ci.credit);
 
 		}
 
@@ -212,9 +250,3 @@ public class MainActivity extends Activity {
 	}
 }
 
-// 파싱
-class ParsingData {
-	ParsingData() {
-
-	}
-}

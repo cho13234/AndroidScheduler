@@ -44,10 +44,10 @@ public class CustomAdapter extends BaseAdapter {
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
 		
-		final int pos = position;
 		final Context context = parent.getContext();
 		
 		TextView text 		= null;
+		TextView text1		= null;
 		CustomHolder holder = null;
 		
 		// (too long list..)fading item.convertView == null
@@ -58,24 +58,29 @@ public class CustomAdapter extends BaseAdapter {
 			convertView = inflater.inflate(R.layout.custom_item, parent, false);
 			
 			text	= (TextView) convertView.findViewById(R.id.text);
+			text1	= (TextView) convertView.findViewById(R.id.text1);
 			
 			// create holder , setTag
 			holder 				= new CustomHolder();
 			holder.mTextView	= text;
+			holder.mTextView1	= text1;
 			convertView.setTag(holder);
 		}
 		else{
 			holder = (CustomHolder) convertView.getTag();
 			text = holder.mTextView;
+			text1 = holder.mTextView1;
 		}
 		
 		text.setText(mList.get(position).name);
+		text1.setText(mList.get(position).type);
 
 		return convertView;
 	}
 	
 	private class CustomHolder{
 		TextView mTextView;
+		TextView mTextView1;
 	}
 	
 	public void add(ClassInfo _msg){

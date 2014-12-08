@@ -14,6 +14,7 @@ public class NewActivity extends Activity {
 	private EditText text1;
 	private EditText text2;
 	private EditText text3;
+	private EditText text4;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -23,6 +24,7 @@ public class NewActivity extends Activity {
 		text1 = (EditText) findViewById(R.id.editText1);
 		text2 = (EditText) findViewById(R.id.editText2);
 		text3 = (EditText) findViewById(R.id.editText3);
+		text4 = (EditText) findViewById(R.id.editText4);
 
 		Bundle bundle = getIntent().getExtras();
 		ClassInfo ci = bundle.getParcelable("ClassInfo");
@@ -30,6 +32,7 @@ public class NewActivity extends Activity {
 		text1.setText(ci.getName());
 		text2.setText(ci.getDay());
 		text3.setText(ci.getType());
+		text4.setText(ci.getCredit());
 		Log.d("NewResult", "NewActiviy CI Name is " + ci.getName());
 	}
 
@@ -45,10 +48,10 @@ public class NewActivity extends Activity {
 		String name 		= text1.getText().toString();
 		String day 			= text2.getText().toString();
 		String type 		= text3.getText().toString();
-//		String credit;
+		String credit		= text4.getText().toString();
 
-		ClassInfo ci 		= new ClassInfo(name,day,type,"");
-		Intent intent = new Intent();
+		ClassInfo ci 		= new ClassInfo(name,day,type,credit);
+		Intent intent		= new Intent();
 
 		intent.putExtra("ClassInfo", ci);
 		setResult(2001, intent);
