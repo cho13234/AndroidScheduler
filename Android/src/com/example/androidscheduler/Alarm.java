@@ -82,7 +82,7 @@ public class Alarm extends Activity implements OnDateChangedListener, OnTimeChan
 
         //셋 버튼, 리셋버튼의 리스너를 등록
 
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_alarm);
 
         Button b = (Button)findViewById(R.id.set);
 
