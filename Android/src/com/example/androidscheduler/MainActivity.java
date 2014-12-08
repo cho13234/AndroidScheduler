@@ -44,11 +44,7 @@ public class MainActivity extends Activity {
 	private int x = 0, y = 0;
 	public int monId = 0;
 	
-<<<<<<< HEAD
-	public ClassArray classArray;;
-=======
 	public ClassArray classArray;
->>>>>>> cellStuff
 
 	// item listener
 	public class CustomClickListner implements OnItemClickListener {
@@ -150,8 +146,6 @@ public class MainActivity extends Activity {
 			mAdapter.add((i + 8) + ":" + 30);
 		}
 
-//		ClassInfo ci = new ClassInfo("", "", "","");
-
 		for (int i = 0; i < 6; i++) {
 			for (int j = 0; j < 9; j++) {
 				ClassInfo ci = new ClassInfo("",week.charAt(i)+"-"+(j+1),"","");
@@ -162,7 +156,6 @@ public class MainActivity extends Activity {
 		ClassInfo ci1 = new ClassInfo("Chemistry", "목-1_2_3+금-2", "example", "example");
 
 		mCustomArray.get(4).edit(1, ci1); // set initial value - test
-//		mCustomArray.get(2).edit(0, ci1); // set initial value - test2
 
 		mListViewMon.setOnItemClickListener(new CustomClickListner());
 		mListViewTue.setOnItemClickListener(new CustomClickListner());
@@ -183,14 +176,9 @@ public class MainActivity extends Activity {
 			Bundle bundle = data.getExtras();
 			ci = (ClassInfo) bundle.get("ClassInfo");
 
-<<<<<<< HEAD
-//			mCustomArray.get(x).edit(y, ci);
-			
 			// refresh data cell
 			mCustomArray.get(x).notifyDataSetChanged();
 
-			Log.d("MainResult", "x is " + x + " y is " + y);
-=======
 			if(ci.getDay().contains("+")){
 				
 				// 일부 특수문자를 string 으로 변환하기 위해 \\를 앞에 붙인다.
