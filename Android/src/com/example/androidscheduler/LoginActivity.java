@@ -1,20 +1,12 @@
 package com.example.androidscheduler;
 
-import java.io.BufferedReader;
-import java.io.PrintWriter;
-import java.net.Socket;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.View.OnClickListener;
-import android.widget.Button;
 import android.widget.EditText;
-import android.widget.RelativeLayout;
-import android.widget.Toast;
 
 public class LoginActivity extends Activity {
 	
@@ -33,8 +25,13 @@ public class LoginActivity extends Activity {
 	public void loginBtnClick(View v){
 		String name = nameView.getText().toString();
 		String number = numberView.getText().toString();
+		
+		StudentInfo student = new StudentInfo(name,number);
 		Intent intent = new Intent(this, MainActivity.class);
-		startActivity(intent);
+		intent.putExtra("StudentInfo", student);
+
+		setResult(2002, intent);
+		finish();
     }
 
 	@Override

@@ -25,10 +25,8 @@
         android:layout_below="@+id/name"
         android:layout_marginTop="28dp"
         android:ems="10"
-        android:hint="학번" >
+        android:hint="학년" />
 
-        <requestFocus />
-    </EditText>
 
     <EditText
         android:id="@+id/name"

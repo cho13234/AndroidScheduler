@@ -10,7 +10,6 @@ public class ClassInfo implements Parcelable {
 	public String type;
 	public String credit;
 	
-	
 
 	public ClassInfo(String name, String day, String detail, String credit) {
 

@@ -39,12 +39,12 @@ public class MainActivity extends Activity {
 	private CustomAdapter mAdapterFri;
 	private CustomAdapter mAdapterSat;
 
-//	private String[] Day = { "Mon", "Tue", "Wed", "Thu", "Fri", "Sat" };
 	private String week = "월화수목금토일";
 	private int x = 0, y = 0;
 	public int monId = 0;
 	
 	public ClassArray classArray;
+	public StudentInfo student;
 
 	// item listener
 	public class CustomClickListner implements OnItemClickListener {
@@ -101,6 +101,40 @@ public class MainActivity extends Activity {
 			
 		} catch (Exception e) {
 			e.printStackTrace();
+		}
+		
+		// student data
+		try {
+			InputStream in = getResources().openRawResource(R.raw.student_info);
+			BufferedReader br = new BufferedReader(new InputStreamReader(in,"UTF-8"));
+			String line;
+			String array[];
+
+			for(int i = 0; i < 2; i++){
+				if((line = br.readLine()) != null){
+					array = line.split("=");
+					if(array[1] != null){
+						switch (i) {
+						case 1:
+							student.name = array[1];
+							break;
+						case 2:
+							student.number = array[1];
+							break;
+						}
+					}
+				}
+			}
+			br.close();
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		if(student == null){
+			Log.d("Intent","in if-else");
+			Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+			startActivityForResult(intent, 1000);
 		}
 
 		// listview - adapterview -- need adapter
@@ -163,6 +197,9 @@ public class MainActivity extends Activity {
 		mListViewThu.setOnItemClickListener(new CustomClickListner());
 		mListViewFri.setOnItemClickListener(new CustomClickListner());
 		mListViewSat.setOnItemClickListener(new CustomClickListner());
+		
+
+		
 
 	}
 
@@ -213,6 +250,42 @@ public class MainActivity extends Activity {
 			Log.d("MainResult", "Class type is " + ci.type);
 			Log.d("MainResult", "Class credit is " + ci.credit);
 
+		}
+		else if(resultCode == 2002){
+			Log.d("MainResult", "in Login result");
+			Bundle bundle = data.getExtras();
+			student = (StudentInfo) bundle.get("StudentInfo");
+			Log.d("MainResult", student.name+" "+student.number);
+			
+			for(int i = classArray.dept.size()-1; i > 0; i--){
+
+				// 서로 같지 않을 때
+				if(!classArray.dept.get(i).equals(student.name)){
+					
+					classArray.dept.remove(i);
+					classArray.grade.remove(i);
+					classArray.type.remove(i);
+					classArray.name.remove(i);
+					classArray.day.remove(i);
+					classArray.credit.remove(i);
+				}
+			}
+			for(int i = classArray.dept.size()-1; i > 0; i--){
+				
+				if(!classArray.grade.get(i).equals(student.number)){
+					
+					classArray.dept.remove(i);
+					classArray.grade.remove(i);
+					classArray.type.remove(i);
+					classArray.name.remove(i);
+					classArray.day.remove(i);
+					classArray.credit.remove(i);
+				}
+				else{
+					Log.d("MainResult",classArray.name.get(i));
+				}
+			}
+			
 		}
 
 		super.onActivityResult(requestCode, resultCode, data);
