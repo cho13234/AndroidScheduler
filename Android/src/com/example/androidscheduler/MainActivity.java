@@ -200,9 +200,12 @@ public class MainActivity extends Activity {
 			}
 			else{
 				String day = ci.getDay();
-				for(int j = 1; j < day.length()/2; j++){
-					mCustomArray.get(week.indexOf(day.charAt(0))).edit(day.charAt(j*2), ci);
+				
+				for(int j = 1; j < (day.length()+1)/2; j++){
+					mCustomArray.get(week.indexOf(day.charAt(0))).edit(day.charAt(j*2)-'1', ci);
 				}
+				
+				mCustomArray.get(week.indexOf(day.charAt(0))).notifyDataSetChanged();
 			}
 			Log.d("MainResult", "Class name is " + ci.name);
 			Log.d("MainResult", "Class day is " + ci.day);
