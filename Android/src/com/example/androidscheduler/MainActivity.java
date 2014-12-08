@@ -42,6 +42,8 @@ public class MainActivity extends Activity {
 //	private String[] Day = { "Mon", "Tue", "Wed", "Thu", "Fri", "Sat" };
 	private int x = 0, y = 0;
 	public int monId = 0;
+	
+	public ClassArray classArray;;
 
 	// item listener
 	public class CustomClickListner implements OnItemClickListener {
@@ -81,7 +83,7 @@ public class MainActivity extends Activity {
 			BufferedReader br = new BufferedReader(new InputStreamReader(in,"UTF-8"));
 			String line;
 			String array[];
-			ClassArray classArray = new ClassArray();
+			classArray = new ClassArray();
 			
 			while((line = br.readLine()) != null){
 				array = line.split(",");
@@ -94,6 +96,7 @@ public class MainActivity extends Activity {
 				classArray.credit.add(array[5]);
 				
 			}
+			br.close();
 			
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -150,7 +153,7 @@ public class MainActivity extends Activity {
 			}
 		}
 
-		ClassInfo ci1 = new ClassInfo("Chemistry", "Mon-1", "example", "example");
+		ClassInfo ci1 = new ClassInfo("Chemistry", "목 1  2  3", "example", "example");
 
 		mCustomArray.get(0).edit(3, ci1); // set initial value - test
 		mCustomArray.get(2).edit(0, ci1); // set initial value - test2
@@ -174,7 +177,9 @@ public class MainActivity extends Activity {
 			Bundle bundle = data.getExtras();
 			ci = (ClassInfo) bundle.get("ClassInfo");
 
-			mCustomArray.get(x).edit(y, ci);
+//			mCustomArray.get(x).edit(y, ci);
+			
+			// refresh data cell
 			mCustomArray.get(x).notifyDataSetChanged();
 
 			Log.d("MainResult", "x is " + x + " y is " + y);
