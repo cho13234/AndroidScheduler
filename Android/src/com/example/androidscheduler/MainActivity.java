@@ -47,25 +47,27 @@ public class MainActivity extends Activity {
 	public StudentInfo student;
 
 	// item listener
-	public class CustomClickListner implements OnItemClickListener {
+	private class CustomClickListner implements OnItemClickListener {
 
 		@Override
 		public void onItemClick(AdapterView<?> parent, View view, int position,
 				long id) {
-			Intent intent = new Intent(MainActivity.this, NewActivity.class);
+			Intent intent = new Intent(MainActivity.this, TouchActivity.class);
 
-			monId = mListViewMon.getId();
-			int currentId = parent.getId();
-
-			for (int i = 0; i < 6; i++) {
-				if ((currentId - monId) == i) {
-					x = i;
-					y = position;
-				}
-			}
-
-			ClassInfo ci = (ClassInfo) mCustomArray.get(x).getItem(y);
-			Log.d("MainClickListener", x + " " + y);
+//			monId = mListViewMon.getId();
+//			int currentId = parent.getId();
+//
+//			for (int i = 0; i < 6; i++) {
+//				if ((currentId - monId) == i) {
+//					x = i;
+//					y = position;
+//				}
+//			}
+//
+//			ClassInfo ci = (ClassInfo) mCustomArray.get(x).getItem(y);
+			ClassInfo ci = (ClassInfo) parent.getAdapter().getItem(position);
+//			Log.d("MainClickListener", x + " " + y);
+			Log.d("MainClickListener", ci.name);
 
 			intent.putExtra("ClassInfo", ci);
 			startActivityForResult(intent, 1000);
@@ -189,9 +191,9 @@ public class MainActivity extends Activity {
 			}
 		}
 
-		ClassInfo ci1 = new ClassInfo("Chemistry", "목-1_2_3+금-2", "example", "example");
-
-		mCustomArray.get(4).edit(1, ci1); // set initial value - test
+//		ClassInfo ci1 = new ClassInfo("Chemistry", "목-1_2_3+금-2", "example", "example");
+//
+//		mCustomArray.get(4).edit(1, ci1); // set initial value - test
 
 		mListViewMon.setOnItemClickListener(new CustomClickListner());
 		mListViewTue.setOnItemClickListener(new CustomClickListner());
@@ -199,9 +201,6 @@ public class MainActivity extends Activity {
 		mListViewThu.setOnItemClickListener(new CustomClickListner());
 		mListViewFri.setOnItemClickListener(new CustomClickListner());
 		mListViewSat.setOnItemClickListener(new CustomClickListner());
-		
-
-		
 
 	}
 
