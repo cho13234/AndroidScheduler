@@ -74,11 +74,9 @@ public class LoginActivity extends Activity {
 		Intent intent = new Intent(this, MainActivity.class);
 		intent.putExtra("StudentInfo", student);
 
-		// File file = getFileStreamPath("student_info.txt");
 		FileOutputStream fos = openFileOutput("student_info.txt", MODE_PRIVATE);
 
 		try {
-			// Writer out = new OutputStreamWriter(fos,"UTF-8");
 			OutputStreamWriter osw = new OutputStreamWriter(fos, "UTF-8");
 			BufferedWriter bw = new BufferedWriter(osw);
 			name = "name=" + name;

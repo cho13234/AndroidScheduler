@@ -34,6 +34,7 @@ public class TouchActivity extends Activity {
 		if (mode == 1) {
 			ci = (ClassInfo) bundle.get("ClassInfo");
 			ClassInfo cinfo = new ClassInfo("", "취소", "", "", "", "");
+			
 			touchAdapter.add(cinfo);
 		} 
 		else {
@@ -85,11 +86,11 @@ public class TouchActivity extends Activity {
 
 			}
 			for (int i = 0; i < classArr.dept.size(); i++) {
-				ClassInfo ci = new ClassInfo(classArr.name.get(i),
+				ClassInfo info = new ClassInfo(classArr.name.get(i),
 						classArr.day.get(i), classArr.type.get(i),
 						classArr.credit.get(i), classArr.dept.get(i),
 						classArr.grade.get(i));
-				touchAdapter.add(ci);
+				touchAdapter.add(info);
 			}
 		}
 
@@ -111,11 +112,16 @@ public class TouchActivity extends Activity {
 				long id) {
 			Intent intent = new Intent(TouchActivity.this, MainActivity.class);
 
-			ClassInfo ci = (ClassInfo) parent.getAdapter().getItem(position);
+			ClassInfo info = (ClassInfo) parent.getAdapter().getItem(position);
 
-			intent.putExtra("ClassInfo", ci);
-			Log.d("TouchListner", ci.name);
-			setResult(2001, intent);
+			if(info.day.equals("취소")){
+				intent.putExtra("ClassInfo", ci.getDay());
+				setResult(2002, intent);
+			}
+			else{
+				intent.putExtra("ClassInfo", info);
+				setResult(2001, intent);
+			}
 			finish();
 		}
 	}

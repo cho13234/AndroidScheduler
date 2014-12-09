@@ -101,7 +101,7 @@ public class MainActivity extends Activity {
 				classArray.name.add(array[3]);
 				classArray.day.add(array[4]);
 				classArray.credit.add(array[5]);
-				Log.d("InMainClass",classArray.dept.get(i++));
+				Log.d("InMainClass", classArray.dept.get(i++));
 
 			}
 			br.close();
@@ -155,7 +155,7 @@ public class MainActivity extends Activity {
 			Intent intent = new Intent(MainActivity.this, LoginActivity.class);
 			startActivityForResult(intent, 1000);
 		} else {
-			for (int i = classArray.dept.size() - 1; i > 0; i--) {
+			for (int i = classArray.dept.size() - 1; i >= 0; i--) {
 
 				// 서로 같지 않을 때 // isSpecific이 true일 때만 해당 거르기 수행
 				if (!classArray.dept.get(i).equals(student.name)
@@ -245,18 +245,19 @@ public class MainActivity extends Activity {
 
 		Log.d("MainResult", "" + "result code is " + resultCode);
 
+		ClassInfo ci;
+		Bundle bundle = data.getExtras();
 		if (resultCode == 2001) {
-			ClassInfo ci;
-			Bundle bundle = data.getExtras();
 			ci = (ClassInfo) bundle.get("ClassInfo");
 
 			// refresh data cell
-			mCustomArray.get(x).notifyDataSetChanged();
+			// mCustomArray.get(x).notifyDataSetChanged();
+			String day = ci.getDay();
 
 			if (ci.getDay().contains("+")) {
 
 				// 일부 특수문자를 string 으로 변환하기 위해 \\를 앞에 붙인다.
-				String mArray[] = ci.getDay().split("\\+");
+				String mArray[] = day.split("\\+");
 
 				for (int i = 0; i < mArray.length; i++) {
 
@@ -274,7 +275,6 @@ public class MainActivity extends Activity {
 							.notifyDataSetChanged();
 				}
 			} else {
-				String day = ci.getDay();
 
 				for (int j = 1; j < (day.length() + 1) / 2; j++) {
 					mCustomArray.get(week.indexOf(day.charAt(0))).edit(
@@ -285,7 +285,35 @@ public class MainActivity extends Activity {
 						.notifyDataSetChanged();
 			}
 
-		} 
+		} else if (resultCode == 2002) {
+			String day = (String) bundle.get("ClassInfo");
+			ci = new ClassInfo("", "", "", "");
+
+			if (day.contains("+")) {
+				String array[] = day.split("\\+");
+
+				for (int i = 0; i < array.length; i++) {
+					
+					for (int j = 1; j < (array[i].length() + 1) / 2; j++) {
+						mCustomArray.get(week.indexOf(array[i].charAt(0)))
+								.edit(array[i].charAt(j * 2) - '1', ci);
+					}
+					
+					mCustomArray.get(week.indexOf(array[i].charAt(0)))
+							.notifyDataSetChanged();
+				}
+			} 
+			else {
+				
+				for (int j = 1; j < (day.length() + 1) / 2; j++) {
+					mCustomArray.get(week.indexOf(day.charAt(0))).edit(
+							day.charAt(j * 2) - '1', ci);
+				}
+				
+				mCustomArray.get(week.indexOf(day.charAt(0)))
+						.notifyDataSetChanged();
+			}
+		}
 
 		super.onActivityResult(requestCode, resultCode, data);
 	}
