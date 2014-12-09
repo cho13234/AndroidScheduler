@@ -53,7 +53,13 @@ public class TouchActivity extends Activity {
 			int count = 0;
 			String s;
 			String array[];
-			for (int i = classArr.day.size()-1; i > 0; i--) {
+			for (int i = classArr.day.size()-1; i >= 0; i--) {
+				if(classArr.name.get(i).equals("공학작문및발표")){
+					Log.d("itisError?",classArr.day.get(i));
+				}
+				else{
+					Log.d("itisError?",classArr.name.get(i));
+				}
 				if (classArr.day.get(i).contains("+")) {
 					array = classArr.day.get(i).split("\\+");
 
