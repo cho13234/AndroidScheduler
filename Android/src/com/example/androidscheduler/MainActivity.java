@@ -44,10 +44,12 @@ public class MainActivity extends Activity {
 	private int x = 0, y = 0;
 
 	public static ClassArray classArray;
+	private ClassArray originalArray;
 	public StudentInfo student;
 
 	public static boolean isSpecificName = false;
 	public static boolean isSpecificNumber = false;
+	public static boolean isTypeSelected = false;
 
 	// item listener
 	private class CustomClickListner implements OnItemClickListener {
@@ -106,6 +108,8 @@ public class MainActivity extends Activity {
 			}
 			br.close();
 
+			originalArray.set(classArray);
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -147,31 +151,6 @@ public class MainActivity extends Activity {
 
 		} catch (Exception e) {
 			e.printStackTrace();
-		}
-
-		// 학생 정보가 없다면 해당 구간에 진입한다.
-		if (student == null) {
-			Log.d("Intent", "in if-else");
-			Intent intent = new Intent(MainActivity.this, LoginActivity.class);
-			startActivityForResult(intent, 1000);
-		} else {
-			for (int i = classArray.dept.size() - 1; i >= 0; i--) {
-
-				// 서로 같지 않을 때 // isSpecific이 true일 때만 해당 거르기 수행
-				if (!classArray.dept.get(i).equals(student.name)
-						&& isSpecificName) {
-
-					classArray.remove(i);
-				}
-			}
-			for (int i = classArray.dept.size() - 1; i > 0; i--) {
-
-				if (!classArray.grade.get(i).equals(student.number)
-						&& isSpecificNumber) {
-
-					classArray.remove(i);
-				}
-			}
 		}
 
 		// listview - adapterview -- need adapter
@@ -219,17 +198,10 @@ public class MainActivity extends Activity {
 
 		for (int i = 0; i < 6; i++) {
 			for (int j = 0; j < 9; j++) {
-				// ClassInfo ci = new
-				// ClassInfo("",week.charAt(i)+"-"+(j+1),"","");
 				ClassInfo ci = new ClassInfo("", "", "", "");
 				mCustomArray.get(i).add(ci);
 			}
 		}
-
-		// ClassInfo ci1 = new ClassInfo("Chemistry", "목-1_2_3+금-2", "example",
-		// "example");
-		//
-		// mCustomArray.get(4).edit(1, ci1); // set initial value - test
 
 		mListViewMon.setOnItemClickListener(new CustomClickListner());
 		mListViewTue.setOnItemClickListener(new CustomClickListner());
@@ -237,6 +209,35 @@ public class MainActivity extends Activity {
 		mListViewThu.setOnItemClickListener(new CustomClickListner());
 		mListViewFri.setOnItemClickListener(new CustomClickListner());
 		mListViewSat.setOnItemClickListener(new CustomClickListner());
+		
+		isTypeSelected = true;
+		// 학생 정보가 없다면 해당 구간에 진입한다.
+		if (student == null) {
+			Log.d("Intent", "in if-else");
+			Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+			startActivityForResult(intent, 1000);
+		}
+		else if (isTypeSelected) {
+			for (int i = classArray.dept.size()-1; i >= 0; i--) {
+				if (!classArray.dept.get(i).equals(student.name)) {
+					classArray.remove(i);
+				}
+			}
+			for (int i = classArray.grade.size()-1; i >= 0; i--) {
+				if (!classArray.grade.get(i).equals(student.number)) {
+					classArray.remove(i);
+				}
+			}
+			for (int i = classArray.type.size()-1; i >= 0; i--) {
+				if (classArray.type.get(i).equals("전필")) {
+					ClassInfo ci = new ClassInfo(classArray.name.get(i),
+							classArray.day.get(i), classArray.type.get(i),
+							classArray.credit.get(i), classArray.dept.get(i),
+							classArray.grade.get(i));
+					refreshData(classArray.day.get(i), ci);
+				}
+			}
+		}
 
 	}
 
@@ -249,79 +250,58 @@ public class MainActivity extends Activity {
 		Bundle bundle = data.getExtras();
 		if (resultCode == 2001) {
 			ci = (ClassInfo) bundle.get("ClassInfo");
-
-			// refresh data cell
-			// mCustomArray.get(x).notifyDataSetChanged();
-			String day = ci.getDay();
-
-			if (ci.getDay().contains("+")) {
-
-				// 일부 특수문자를 string 으로 변환하기 위해 \\를 앞에 붙인다.
-				String mArray[] = day.split("\\+");
-
-				for (int i = 0; i < mArray.length; i++) {
-
-					// (length +1)/2 로 반올림 성립
-					for (int j = 1; j < (mArray[i].length() + 1) / 2; j++) {
-
-						// 원래 -'0'을 함으로써 ascii -> integer 변환을 하지만 숫자표기는 1~9이고 실제
-						// position 은 0~8이므로 -'1'을 해준다.
-						mCustomArray.get(week.indexOf(mArray[i].charAt(0)))
-								.edit(mArray[i].charAt(j * 2) - '1', ci);
-					}
-
-					// refresh data cell
-					mCustomArray.get(week.indexOf(mArray[i].charAt(0)))
-							.notifyDataSetChanged();
-				}
-			} else {
-
-				for (int j = 1; j < (day.length() + 1) / 2; j++) {
-					mCustomArray.get(week.indexOf(day.charAt(0))).edit(
-							day.charAt(j * 2) - '1', ci);
-				}
-
-				mCustomArray.get(week.indexOf(day.charAt(0)))
-						.notifyDataSetChanged();
-			}
+			refreshData(ci.day, ci);
 
 		} else if (resultCode == 2002) {
 			String day = (String) bundle.get("ClassInfo");
 			ci = new ClassInfo("", "", "", "");
-
-			if (day.contains("+")) {
-				String array[] = day.split("\\+");
-
-				for (int i = 0; i < array.length; i++) {
-					
-					for (int j = 1; j < (array[i].length() + 1) / 2; j++) {
-						mCustomArray.get(week.indexOf(array[i].charAt(0)))
-								.edit(array[i].charAt(j * 2) - '1', ci);
-					}
-					
-					mCustomArray.get(week.indexOf(array[i].charAt(0)))
-							.notifyDataSetChanged();
-				}
-			} 
-			else {
-				
-				for (int j = 1; j < (day.length() + 1) / 2; j++) {
-					mCustomArray.get(week.indexOf(day.charAt(0))).edit(
-							day.charAt(j * 2) - '1', ci);
-				}
-				
-				mCustomArray.get(week.indexOf(day.charAt(0)))
-						.notifyDataSetChanged();
-			}
+			refreshData(day, ci);
 		}
 
 		super.onActivityResult(requestCode, resultCode, data);
+	}
+
+	public void refreshData(String dayInfo, ClassInfo filler) {
+		String day = dayInfo;
+
+		if (day.contains("+")) {
+
+			// 일부 특수문자를 string 으로 변환하기 위해 \\를 앞에 붙인다.
+			String mArray[] = day.split("\\+");
+
+			for (int i = 0; i < mArray.length; i++) {
+
+				// (length +1)/2 로 반올림 성립
+				for (int j = 1; j < (mArray[i].length() + 1) / 2; j++) {
+
+					// 원래 -'0'을 함으로써 ascii -> integer 변환을 하지만 숫자표기는 1~9이고 실제
+					// position 은 0~8이므로 -'1'을 해준다.
+					mCustomArray.get(week.indexOf(mArray[i].charAt(0))).edit(
+							mArray[i].charAt(j * 2) - '1', filler);
+				}
+
+				// refresh data cell
+				mCustomArray.get(week.indexOf(mArray[i].charAt(0)))
+						.notifyDataSetChanged();
+			}
+		} else {
+
+			for (int j = 1; j < (day.length() + 1) / 2; j++) {
+				mCustomArray.get(week.indexOf(day.charAt(0))).edit(
+						day.charAt(j * 2) - '1', filler);
+			}
+
+			mCustomArray.get(week.indexOf(day.charAt(0)))
+					.notifyDataSetChanged();
+		}
 	}
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.main, menu);
+		
+		menu.add(0, 0, Menu.NONE, "ONE").setTitle("설정");
 		return true;
 	}
 
