@@ -18,30 +18,32 @@ public class ClassInfo implements Parcelable {
 
 	public ClassInfo(String name, String day, String detail, String credit) {
 
-		this.name = name;
-		this.day = day;
-		this.type = detail;
+		this.name 	= name;
+		this.day 	= day;
+		this.type 	= detail;
 		this.credit = credit;
-		this.dept = new String();
-		this.grade = new String();
+		this.dept	= new String();
+		this.grade 	= new String();
 	}
 	
 	public ClassInfo(String name, String day, String detail, String credit, String dept, String grade){
 		
-		this.name = name;
-		this.day = day;
-		this.type = detail;
+		this.name 	= name;
+		this.day 	= day;
+		this.type 	= detail;
 		this.credit = credit;
-		this.dept = dept;
-		this.grade = grade;
+		this.dept 	= dept;
+		this.grade 	= grade;
 	}
 
 	public ClassInfo(Parcel src) {
 
-		name = src.readString();
-		day = src.readString();
-		type = src.readString();
-		credit = src.readString();
+		name 	= src.readString();
+		day 	= src.readString();
+		type 	= src.readString();
+		credit 	= src.readString();
+		dept 	= src.readString();
+		grade 	= src.readString();
 	}
 
 	public static final Parcelable.Creator CREATOR = new Parcelable.Creator() {

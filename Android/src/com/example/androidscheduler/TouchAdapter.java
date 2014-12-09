@@ -55,7 +55,7 @@ public class TouchAdapter extends BaseAdapter {
 			
 			// view == null --> get custom layout
 			LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-			convertView = inflater.inflate(R.layout.custom_item, parent, false);
+			convertView = inflater.inflate(R.layout.touch_item, parent, false);
 			
 			text	= (TextView) convertView.findViewById(R.id.text);
 			text1	= (TextView) convertView.findViewById(R.id.text1);
@@ -101,7 +101,7 @@ public class TouchAdapter extends BaseAdapter {
 			text5.setText(array[0]);
 		}
 		else{
-			text5.setText(mList.get(position).day);
+			text5.setText(day);
 		}
 
 		return convertView;
