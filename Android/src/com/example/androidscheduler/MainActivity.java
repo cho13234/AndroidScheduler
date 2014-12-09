@@ -1,6 +1,7 @@
 package com.example.androidscheduler;
 
 import java.io.BufferedReader;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -39,12 +40,14 @@ public class MainActivity extends Activity {
 	private CustomAdapter mAdapterFri;
 	private CustomAdapter mAdapterSat;
 
-	private String week = "월화수목금토일";
+	public static String week = "월화수목금토일";
 	private int x = 0, y = 0;
-	public int monId = 0;
-	
+
 	public static ClassArray classArray;
 	public StudentInfo student;
+
+	public static boolean isSpecificName = false;
+	public static boolean isSpecificNumber = false;
 
 	// item listener
 	private class CustomClickListner implements OnItemClickListener {
@@ -54,22 +57,21 @@ public class MainActivity extends Activity {
 				long id) {
 			Intent intent = new Intent(MainActivity.this, TouchActivity.class);
 
-//			monId = mListViewMon.getId();
-//			int currentId = parent.getId();
-//
-//			for (int i = 0; i < 6; i++) {
-//				if ((currentId - monId) == i) {
-//					x = i;
-//					y = position;
-//				}
-//			}
-//
-//			ClassInfo ci = (ClassInfo) mCustomArray.get(x).getItem(y);
 			ClassInfo ci = (ClassInfo) parent.getAdapter().getItem(position);
-//			Log.d("MainClickListener", x + " " + y);
-			Log.d("MainClickListener", ci.name);
 
-			intent.putExtra("ClassInfo", ci);
+			if (!ci.day.equals("")) {
+				// classInfo 존재할 때
+				intent.putExtra("mode", 1);
+				intent.putExtra("ClassInfo", ci);
+			} else {
+				// classInfo 없으므로 위치정보만 넘김
+				x = parent.getId() - mListViewMon.getId();
+				y = position;
+
+				intent.putExtra("mode", 2);
+				intent.putExtra("isX", x);
+				intent.putExtra("isY", y);
+			}
 			startActivityForResult(intent, 1000);
 		}
 	}
@@ -83,62 +85,93 @@ public class MainActivity extends Activity {
 		try {
 			// res/raw/ <- in text file
 			InputStream in = getResources().openRawResource(R.raw.class_info);
-			BufferedReader br = new BufferedReader(new InputStreamReader(in,"UTF-8"));
+			BufferedReader br = new BufferedReader(new InputStreamReader(in,
+					"UTF-8"));
 			String line;
 			String array[];
 			classArray = new ClassArray();
-			
-			while((line = br.readLine()) != null){
+
+			int i = 0;
+			while ((line = br.readLine()) != null) {
 				array = line.split(",");
-				
+
 				classArray.dept.add(array[0]);
 				classArray.grade.add(array[1]);
 				classArray.type.add(array[2]);
 				classArray.name.add(array[3]);
 				classArray.day.add(array[4]);
 				classArray.credit.add(array[5]);
-				
+				Log.d("InMainClass",classArray.dept.get(i++));
+
 			}
 			br.close();
-			
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
+
 		// student data
 		try {
-			InputStream in = getResources().openRawResource(R.raw.student_info);
-			BufferedReader br = new BufferedReader(new InputStreamReader(in,"UTF-8"));
+			FileInputStream fis = openFileInput("student_info.txt");
+			BufferedReader br = new BufferedReader(new InputStreamReader(fis,
+					"UTF-8"));
 			String line;
 			String array[];
+			student = new StudentInfo("", "");
 
-			for(int i = 0; i < 2; i++){
-				if((line = br.readLine()) != null){
+			for (int i = 0; i < 4; i++) {
+				if ((line = br.readLine()) != null) {
 					array = line.split("=");
-					if(array[1] != null){
+					if (!array[1].equals("")) {
 						switch (i) {
+						case 0:
+							student.setName(array[1]);
+							break;
 						case 1:
-							student.name = array[1];
+							student.setNumber(array[1]);
 							break;
 						case 2:
-							student.number = array[1];
+							// true 라면 true 반환
+							isSpecificName = array[1].equals("true");
+							break;
+						case 3:
+							isSpecificNumber = array[1].equals("true");
+							break;
+						default:
 							break;
 						}
 					}
 				}
 			}
 			br.close();
-			
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
+
 		// 학생 정보가 없다면 해당 구간에 진입한다.
-		if(student == null){
-			Log.d("Intent","in if-else");
-//			Intent intent = new Intent(MainActivity.this, LoginActivity.class);
-			Intent intent = new Intent(MainActivity.this, TouchActivity.class);	// it for debugging
+		if (student == null) {
+			Log.d("Intent", "in if-else");
+			Intent intent = new Intent(MainActivity.this, LoginActivity.class);
 			startActivityForResult(intent, 1000);
+		} else {
+			for (int i = classArray.dept.size() - 1; i > 0; i--) {
+
+				// 서로 같지 않을 때 // isSpecific이 true일 때만 해당 거르기 수행
+				if (!classArray.dept.get(i).equals(student.name)
+						&& isSpecificName) {
+
+					classArray.remove(i);
+				}
+			}
+			for (int i = classArray.dept.size() - 1; i > 0; i--) {
+
+				if (!classArray.grade.get(i).equals(student.number)
+						&& isSpecificNumber) {
+
+					classArray.remove(i);
+				}
+			}
 		}
 
 		// listview - adapterview -- need adapter
@@ -186,14 +219,17 @@ public class MainActivity extends Activity {
 
 		for (int i = 0; i < 6; i++) {
 			for (int j = 0; j < 9; j++) {
-				ClassInfo ci = new ClassInfo("",week.charAt(i)+"-"+(j+1),"","");
+				// ClassInfo ci = new
+				// ClassInfo("",week.charAt(i)+"-"+(j+1),"","");
+				ClassInfo ci = new ClassInfo("", "", "", "");
 				mCustomArray.get(i).add(ci);
 			}
 		}
 
-//		ClassInfo ci1 = new ClassInfo("Chemistry", "목-1_2_3+금-2", "example", "example");
-//
-//		mCustomArray.get(4).edit(1, ci1); // set initial value - test
+		// ClassInfo ci1 = new ClassInfo("Chemistry", "목-1_2_3+금-2", "example",
+		// "example");
+		//
+		// mCustomArray.get(4).edit(1, ci1); // set initial value - test
 
 		mListViewMon.setOnItemClickListener(new CustomClickListner());
 		mListViewTue.setOnItemClickListener(new CustomClickListner());
@@ -217,76 +253,39 @@ public class MainActivity extends Activity {
 			// refresh data cell
 			mCustomArray.get(x).notifyDataSetChanged();
 
-			if(ci.getDay().contains("+")){
-				
+			if (ci.getDay().contains("+")) {
+
 				// 일부 특수문자를 string 으로 변환하기 위해 \\를 앞에 붙인다.
 				String mArray[] = ci.getDay().split("\\+");
-				
-				for(int i = 0; i < mArray.length; i++){
-					
+
+				for (int i = 0; i < mArray.length; i++) {
+
 					// (length +1)/2 로 반올림 성립
-					for(int j = 1; j < (mArray[i].length()+1)/2; j++){
-						
-						// 원래 -'0'을 함으로써 ascii -> integer 변환을 하지만 숫자표기는 1~9이고 실제 position 은 0~8이므로 -'1'을 해준다.
-						mCustomArray.get(week.indexOf(mArray[i].charAt(0))).edit(mArray[i].charAt(j*2)-'1', ci);
+					for (int j = 1; j < (mArray[i].length() + 1) / 2; j++) {
+
+						// 원래 -'0'을 함으로써 ascii -> integer 변환을 하지만 숫자표기는 1~9이고 실제
+						// position 은 0~8이므로 -'1'을 해준다.
+						mCustomArray.get(week.indexOf(mArray[i].charAt(0)))
+								.edit(mArray[i].charAt(j * 2) - '1', ci);
 					}
-					
+
 					// refresh data cell
-					mCustomArray.get(week.indexOf(mArray[i].charAt(0))).notifyDataSetChanged();
+					mCustomArray.get(week.indexOf(mArray[i].charAt(0)))
+							.notifyDataSetChanged();
 				}
-			}
-			else{
+			} else {
 				String day = ci.getDay();
-				
-				for(int j = 1; j < (day.length()+1)/2; j++){
-					mCustomArray.get(week.indexOf(day.charAt(0))).edit(day.charAt(j*2)-'1', ci);
+
+				for (int j = 1; j < (day.length() + 1) / 2; j++) {
+					mCustomArray.get(week.indexOf(day.charAt(0))).edit(
+							day.charAt(j * 2) - '1', ci);
 				}
-				
-				mCustomArray.get(week.indexOf(day.charAt(0))).notifyDataSetChanged();
+
+				mCustomArray.get(week.indexOf(day.charAt(0)))
+						.notifyDataSetChanged();
 			}
 
-			Log.d("MainResult", "Class name is " + ci.name);
-			Log.d("MainResult", "Class day is " + ci.day);
-			Log.d("MainResult", "Class type is " + ci.type);
-			Log.d("MainResult", "Class credit is " + ci.credit);
-
-		}
-		else if(resultCode == 2002){
-			Log.d("MainResult", "in Login result");
-			Bundle bundle = data.getExtras();
-			student = (StudentInfo) bundle.get("StudentInfo");
-			Log.d("MainResult", student.name+" "+student.number);
-			
-			for(int i = classArray.dept.size()-1; i > 0; i--){
-
-				// 서로 같지 않을 때
-				if(!classArray.dept.get(i).equals(student.name)){
-					
-					classArray.dept.remove(i);
-					classArray.grade.remove(i);
-					classArray.type.remove(i);
-					classArray.name.remove(i);
-					classArray.day.remove(i);
-					classArray.credit.remove(i);
-				}
-			}
-			for(int i = classArray.dept.size()-1; i > 0; i--){
-				
-				if(!classArray.grade.get(i).equals(student.number)){
-					
-					classArray.dept.remove(i);
-					classArray.grade.remove(i);
-					classArray.type.remove(i);
-					classArray.name.remove(i);
-					classArray.day.remove(i);
-					classArray.credit.remove(i);
-				}
-				else{
-					Log.d("MainResult",classArray.name.get(i));
-				}
-			}
-			
-		}
+		} 
 
 		super.onActivityResult(requestCode, resultCode, data);
 	}
@@ -310,4 +309,3 @@ public class MainActivity extends Activity {
 		return super.onOptionsItemSelected(item);
 	}
 }
-

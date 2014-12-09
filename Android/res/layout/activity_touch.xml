@@ -3,18 +3,24 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@android:color/background_light"
-    android:orientation="horizontal" >
+    android:onClick="onReturnButtonClicked"
+    android:orientation="vertical" >
 
     <ListView
         android:id="@+id/listview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="1"
-        android:background="#CCCCCC"
-        android:clickable="false"
-        android:divider="#ffffff"
-        android:dividerHeight="0px" >
+        android:background="#CCCCCC" >
 
     </ListView>
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="11"
+        android:onClick="onButtonReturnClicked"
+        android:text="뒤로가기" />
 
 </LinearLayout>
