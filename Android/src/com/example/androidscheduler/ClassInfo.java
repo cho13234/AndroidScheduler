@@ -1,14 +1,19 @@
 package com.example.androidscheduler;
 
+import java.util.ArrayList;
+
 import android.os.Parcel;
 import android.os.Parcelable;
 
+// indent 전송 간 사용할 data type
 public class ClassInfo implements Parcelable {
 
 	public String name;
 	public String day;
 	public String type;
 	public String credit;
+	public String dept;
+	public String grade;
 	
 
 	public ClassInfo(String name, String day, String detail, String credit) {
@@ -17,6 +22,18 @@ public class ClassInfo implements Parcelable {
 		this.day = day;
 		this.type = detail;
 		this.credit = credit;
+		this.dept = new String();
+		this.grade = new String();
+	}
+	
+	public ClassInfo(String name, String day, String detail, String credit, String dept, String grade){
+		
+		this.name = name;
+		this.day = day;
+		this.type = detail;
+		this.credit = credit;
+		this.dept = dept;
+		this.grade = grade;
 	}
 
 	public ClassInfo(Parcel src) {
@@ -52,6 +69,8 @@ public class ClassInfo implements Parcelable {
 		dest.writeString(day);
 		dest.writeString(type);
 		dest.writeString(credit);
+		dest.writeString(dept);
+		dest.writeString(grade);
 	}
 
 	public String getName() {
@@ -85,5 +104,23 @@ public class ClassInfo implements Parcelable {
 	public void setCredit(String credit) {
 		this.credit = credit;
 	}
+
+	public String getDept() {
+		return dept;
+	}
+
+	public void setDept(String dept) {
+		this.dept = dept;
+	}
+
+	public String getGrade() {
+		return grade;
+	}
+
+	public void setGrade(String grade) {
+		this.grade = grade;
+	}
+	
+	
 
 }

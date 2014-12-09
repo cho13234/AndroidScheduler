@@ -9,11 +9,11 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
-public class CustomAdapter extends BaseAdapter {
+public class TouchAdapter extends BaseAdapter {
 	
 	private ArrayList<ClassInfo> mList;
 	
-	public CustomAdapter(){
+	public TouchAdapter() {
 		mList = new ArrayList<ClassInfo>();
 	}
 
@@ -43,6 +43,11 @@ public class CustomAdapter extends BaseAdapter {
 		
 		TextView text 		= null;
 		TextView text1		= null;
+		TextView text2		= null;
+		TextView text3		= null;
+		TextView text4		= null;
+		TextView text5		= null;
+		
 		CustomHolder holder = null;
 		
 		// (too long list..)fading item.convertView == null
@@ -54,21 +59,50 @@ public class CustomAdapter extends BaseAdapter {
 			
 			text	= (TextView) convertView.findViewById(R.id.text);
 			text1	= (TextView) convertView.findViewById(R.id.text1);
+			text2	= (TextView) convertView.findViewById(R.id.text2);
+			text3	= (TextView) convertView.findViewById(R.id.text3);
+			text4	= (TextView) convertView.findViewById(R.id.text4);
+			text5	= (TextView) convertView.findViewById(R.id.text5);
 			
 			// create holder , setTag
 			holder 				= new CustomHolder();
 			holder.mTextView	= text;
 			holder.mTextView1	= text1;
+			holder.mTextView2	= text2;
+			holder.mTextView3	= text3;
+			holder.mTextView4	= text4;
+			holder.mTextView5	= text5;
 			convertView.setTag(holder);
 		}
 		else{
 			holder = (CustomHolder) convertView.getTag();
 			text = holder.mTextView;
 			text1 = holder.mTextView1;
+			text2 = holder.mTextView2;
+			text3 = holder.mTextView3;
+			text4 = holder.mTextView4;
+			text5 = holder.mTextView5;
 		}
 		
 		text.setText(mList.get(position).name);
-		text1.setText(mList.get(position).type);
+		text1.setText(mList.get(position).dept);
+		text2.setText(mList.get(position).type);
+		text3.setText("학년:"+mList.get(position).grade);
+		text4.setText("학점:"+mList.get(position).credit);
+		
+		String day = mList.get(position).day;
+		day = day.replace("_", " ");
+		if(day.contains("+")){
+			String array[] = day.split("\\+");
+			// 개행문자 삽입으로 일별 한줄씩 사용
+			for(int i = 1; i < array.length; i++){
+				array[0] += "\n"+array[i];
+			}
+			text5.setText(array[0]);
+		}
+		else{
+			text5.setText(mList.get(position).day);
+		}
 
 		return convertView;
 	}
@@ -76,6 +110,10 @@ public class CustomAdapter extends BaseAdapter {
 	private class CustomHolder{
 		TextView mTextView;
 		TextView mTextView1;
+		TextView mTextView2;
+		TextView mTextView3;
+		TextView mTextView4;
+		TextView mTextView5;
 	}
 	
 	public void add(ClassInfo _msg){

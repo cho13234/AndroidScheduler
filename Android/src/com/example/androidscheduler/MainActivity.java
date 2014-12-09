@@ -43,7 +43,7 @@ public class MainActivity extends Activity {
 	private int x = 0, y = 0;
 	public int monId = 0;
 	
-	public ClassArray classArray;
+	public static ClassArray classArray;
 	public StudentInfo student;
 
 	// item listener
@@ -131,9 +131,11 @@ public class MainActivity extends Activity {
 			e.printStackTrace();
 		}
 		
+		// 학생 정보가 없다면 해당 구간에 진입한다.
 		if(student == null){
 			Log.d("Intent","in if-else");
-			Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+//			Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+			Intent intent = new Intent(MainActivity.this, TouchActivity.class);	// it for debugging
 			startActivityForResult(intent, 1000);
 		}
 
@@ -228,7 +230,6 @@ public class MainActivity extends Activity {
 						
 						// 원래 -'0'을 함으로써 ascii -> integer 변환을 하지만 숫자표기는 1~9이고 실제 position 은 0~8이므로 -'1'을 해준다.
 						mCustomArray.get(week.indexOf(mArray[i].charAt(0))).edit(mArray[i].charAt(j*2)-'1', ci);
-						
 					}
 					
 					// refresh data cell
