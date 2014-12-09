@@ -154,7 +154,7 @@ public class Alarm extends Activity implements OnDateChangedListener, OnTimeChan
 
     private PendingIntent pendingIntent() {
 
-        Intent i = new Intent(getApplicationContext(), Alarm.class);
+        Intent i = new Intent(getApplicationContext(), MainActivity.class);
 
         PendingIntent pi = PendingIntent.getActivity(this, 0, i, 0);
 
