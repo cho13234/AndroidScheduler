@@ -15,6 +15,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Toast;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 
@@ -44,7 +45,7 @@ public class MainActivity extends Activity {
 	private int x = 0, y = 0;
 
 	public static ClassArray classArray;
-	private ClassArray originalArray;
+	public ClassArray originalArray;
 	public StudentInfo student;
 
 	public static boolean isSpecificName = false;
@@ -108,50 +109,16 @@ public class MainActivity extends Activity {
 			}
 			br.close();
 
+			originalArray = new ClassArray();
 			originalArray.set(classArray);
+			Log.d("original test",originalArray.name.get(10));
 
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 
-		// student data
-		try {
-			FileInputStream fis = openFileInput("student_info.txt");
-			BufferedReader br = new BufferedReader(new InputStreamReader(fis,
-					"UTF-8"));
-			String line;
-			String array[];
-			student = new StudentInfo("", "");
-
-			for (int i = 0; i < 4; i++) {
-				if ((line = br.readLine()) != null) {
-					array = line.split("=");
-					if (!array[1].equals("")) {
-						switch (i) {
-						case 0:
-							student.setName(array[1]);
-							break;
-						case 1:
-							student.setNumber(array[1]);
-							break;
-						case 2:
-							// true 라면 true 반환
-							isSpecificName = array[1].equals("true");
-							break;
-						case 3:
-							isSpecificNumber = array[1].equals("true");
-							break;
-						default:
-							break;
-						}
-					}
-				}
-			}
-			br.close();
-
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		// student data parsing
+		studentDataRead();
 
 		// listview - adapterview -- need adapter
 		mAdapter = new mCustomAdapter();
@@ -210,33 +177,10 @@ public class MainActivity extends Activity {
 		mListViewFri.setOnItemClickListener(new CustomClickListner());
 		mListViewSat.setOnItemClickListener(new CustomClickListner());
 		
-		isTypeSelected = true;
 		// 학생 정보가 없다면 해당 구간에 진입한다.
 		if (student == null) {
-			Log.d("Intent", "in if-else");
 			Intent intent = new Intent(MainActivity.this, LoginActivity.class);
 			startActivityForResult(intent, 1000);
-		}
-		else if (isTypeSelected) {
-			for (int i = classArray.dept.size()-1; i >= 0; i--) {
-				if (!classArray.dept.get(i).equals(student.name)) {
-					classArray.remove(i);
-				}
-			}
-			for (int i = classArray.grade.size()-1; i >= 0; i--) {
-				if (!classArray.grade.get(i).equals(student.number)) {
-					classArray.remove(i);
-				}
-			}
-			for (int i = classArray.type.size()-1; i >= 0; i--) {
-				if (classArray.type.get(i).equals("전필")) {
-					ClassInfo ci = new ClassInfo(classArray.name.get(i),
-							classArray.day.get(i), classArray.type.get(i),
-							classArray.credit.get(i), classArray.dept.get(i),
-							classArray.grade.get(i));
-					refreshData(classArray.day.get(i), ci);
-				}
-			}
 		}
 
 	}
@@ -244,7 +188,7 @@ public class MainActivity extends Activity {
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 
-		Log.d("MainResult", "" + "result code is " + resultCode);
+		Log.d("MainResult", "result code is " + resultCode);
 
 		ClassInfo ci;
 		Bundle bundle = data.getExtras();
@@ -256,6 +200,8 @@ public class MainActivity extends Activity {
 			String day = (String) bundle.get("ClassInfo");
 			ci = new ClassInfo("", "", "", "");
 			refreshData(day, ci);
+		} else if (resultCode == 2003) {
+			studentDataRead();
 		}
 
 		super.onActivityResult(requestCode, resultCode, data);
@@ -296,12 +242,87 @@ public class MainActivity extends Activity {
 		}
 	}
 
+	public void modData(int mode){
+		for (int i = classArray.dept.size()-1; i >= 0; i--) {
+			if (!classArray.dept.get(i).equals(student.name)) {
+				classArray.remove(i);
+			}
+		}
+		for (int i = classArray.grade.size()-1; i >= 0; i--) {
+			if (!classArray.grade.get(i).equals(student.number)) {
+				classArray.remove(i);
+			}
+		}
+		if(mode == 1){
+			for (int i = classArray.type.size()-1; i >= 0; i--) {
+				if (classArray.type.get(i).equals("전필")) {
+					ClassInfo ci = new ClassInfo(classArray.name.get(i),
+							classArray.day.get(i), classArray.type.get(i),
+							classArray.credit.get(i), classArray.dept.get(i),
+							classArray.grade.get(i));
+					refreshData(classArray.day.get(i), ci);
+				}
+			}
+		}
+		else{
+			for (int i = classArray.type.size()-1; i >= 0; i--) {
+				if (classArray.type.get(i).equals("전필")) {
+					ClassInfo ci = new ClassInfo("","","","");
+					refreshData(classArray.day.get(i), ci);
+				}
+			}
+		}
+		
+	}
+	
+	public void studentDataRead(){
+		// student data
+				try {
+					FileInputStream fis = openFileInput("student_info.txt");
+					BufferedReader br = new BufferedReader(new InputStreamReader(fis,
+							"UTF-8"));
+					String line;
+					String array[];
+					student = new StudentInfo("", "");
+
+					for (int i = 0; i < 4; i++) {
+						if ((line = br.readLine()) != null) {
+							array = line.split("=");
+							if (!array[1].equals("")) {
+								switch (i) {
+								case 0:
+									student.setName(array[1]);
+									break;
+								case 1:
+									student.setNumber(array[1]);
+									break;
+								case 2:
+									// true 라면 true 반환
+									isSpecificName = array[1].equals("true");
+									break;
+								case 3:
+									isSpecificNumber = array[1].equals("true");
+									break;
+								default:
+									break;
+								}
+							}
+						}
+					}
+					br.close();
+
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+	}
+	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.main, menu);
 		
-		menu.add(0, 0, Menu.NONE, "ONE").setTitle("설정");
+		menu.add(0, 0, Menu.NONE, "ONE").setTitle("사용자 정보 설정");
+		menu.add(0, 1, Menu.NONE, "TWO").setTitle("과목 자동선택 설정");
 		return true;
 	}
 
@@ -313,6 +334,32 @@ public class MainActivity extends Activity {
 		int id = item.getItemId();
 		if (id == R.id.action_settings) {
 			return true;
+		}
+		switch (item.getItemId()) {
+		case 0:
+			Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+			startActivityForResult(intent, 1000);
+			break;
+		case 1:
+			if(isTypeSelected){
+				Toast.makeText(getApplicationContext(), "과목 자동선택 기능을 해제합니다.", Toast.LENGTH_LONG).show();
+				isTypeSelected = false;
+				modData(2);
+				classArray.set(originalArray);
+				Log.d("original test",originalArray.name.get(10));
+				Log.d("original test",classArray.name.get(10));
+			}
+			else{
+				Toast.makeText(getApplicationContext(), "전공필수 과목을 자동선택합니다.", Toast.LENGTH_LONG).show();
+				isTypeSelected = true;
+				modData(1);
+				classArray.set(originalArray);
+				Log.d("original test",originalArray.name.get(10));
+				Log.d("original test",classArray.name.get(10));
+			}
+			break;
+		default:
+			break;
 		}
 		return super.onOptionsItemSelected(item);
 	}

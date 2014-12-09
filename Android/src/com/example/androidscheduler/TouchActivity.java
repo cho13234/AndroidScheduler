@@ -78,7 +78,7 @@ public class TouchActivity extends Activity {
 				else {
 					s = classArr.day.get(i);
 
-					if (!s.contains(day) || !s.contains("" + y+1)) {
+					if (!s.contains(day) || !s.contains(y.toString())) {
 						classArr.remove(i);
 					}
 

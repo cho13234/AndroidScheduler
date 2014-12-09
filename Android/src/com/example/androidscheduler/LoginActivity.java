@@ -105,7 +105,7 @@ public class LoginActivity extends Activity {
 			e1.printStackTrace();
 		}
 
-		setResult(2002, intent);
+		setResult(2003, intent);
 		finish();
 	}
 
